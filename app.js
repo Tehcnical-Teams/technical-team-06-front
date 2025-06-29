@@ -1,4 +1,6 @@
+// const API_BASE_URL = 'http://localhost:5000/api';
 const API_BASE_URL = 'https://technical-team-06-back.onrender.com/api';
+
 
 let userId = localStorage.getItem('al_khair_user_id');
 if (!userId) {
@@ -154,6 +156,15 @@ form.onsubmit = async (e) => {
 function showMessage(msg, type) {
   formMessage.textContent = msg;
   formMessage.className = type ? type : '';
+  formMessage.style.display = 'block';
+  window.scrollTo({ top: form.offsetTop - 40, behavior: 'smooth' });
+  if (type === 'success') {
+    setTimeout(() => {
+      formMessage.textContent = '';
+      formMessage.className = '';
+      formMessage.style.display = 'none';
+    }, 4000);
+  }
 }
 
 // Fetch and render donations
