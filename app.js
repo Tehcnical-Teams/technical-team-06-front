@@ -32,13 +32,13 @@ function renderTypeFields(type) {
         <option value="staff-training">Staff Training & Development</option>
       </select>
     `;
-  } else if (type === 'medical') {
+  } else if (type === 'medical-supplies') {
     html = `
       <input type="text" id="medicalItemName" placeholder="Item Name *" required>
       <input type="number" id="medicalQuantity" placeholder="Quantity *" min="1" required>
       <textarea id="medicalDescription" placeholder="Description (e.g., expiry date, condition)"></textarea>
     `;
-  } else if (type === 'volunteer') {
+  } else if (type === 'volunteering-time') {
     html = `
       <input type="text" id="volunteerSkill" placeholder="Your Skill/Role *" required>
       <input type="number" id="volunteerHours" placeholder="Available Hours per Week/Month *" min="0.5" step="0.5" required>
@@ -109,7 +109,7 @@ form.onsubmit = async (e) => {
     }
     donationData.monetaryAmount = parseFloat(amount);
     donationData.monetaryPurpose = purpose;
-  } else if (currentType === 'medical') {
+  } else if (currentType === 'medical-supplies') {
     const item = document.getElementById('medicalItemName').value.trim();
     const qty = document.getElementById('medicalQuantity').value;
     const desc = document.getElementById('medicalDescription').value.trim();
@@ -120,7 +120,7 @@ form.onsubmit = async (e) => {
     donationData.medicalItemName = item;
     donationData.medicalQuantity = parseInt(qty);
     donationData.medicalDescription = desc || null;
-  } else if (currentType === 'volunteer') {
+  } else if (currentType === 'volunteering-time') {
     const skill = document.getElementById('volunteerSkill').value.trim();
     const hours = document.getElementById('volunteerHours').value;
     const times = document.getElementById('volunteerTimes').value.trim();
@@ -190,12 +190,12 @@ async function fetchDonations() {
           <div><b>Amount:</b> ${donation.monetaryAmount} EGP</div>
           <div><b>Purpose:</b> ${donation.monetaryPurpose}</div>
         ` : ''}
-        ${donation.donationType === 'medical' ? `
+        ${donation.donationType === 'medical-supplies' ? `
           <div><b>Item:</b> ${donation.medicalItemName}</div>
           <div><b>Quantity:</b> ${donation.medicalQuantity}</div>
           ${donation.medicalDescription ? `<div><b>Description:</b> ${donation.medicalDescription}</div>` : ''}
         ` : ''}
-        ${donation.donationType === 'volunteer' ? `
+        ${donation.donationType === 'volunteering-time' ? `
           <div><b>Skill:</b> ${donation.volunteerSkill}</div>
           <div><b>Hours:</b> ${donation.volunteerHours}</div>
           ${donation.volunteerTimes ? `<div><b>Availability:</b> ${donation.volunteerTimes}</div>` : ''}
